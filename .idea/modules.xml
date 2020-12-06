@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DL10RoundMenuView.iml" filepath="$PROJECT_DIR$/DL10RoundMenuView.iml" group="DL10RoundMenuView" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RoundMenuView.iml" filepath="$PROJECT_DIR$/.idea/modules/RoundMenuView.iml" group="RoundMenuView" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RoundMenuView-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RoundMenuView-app.iml" group="RoundMenuView/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlroundmenuview/RoundMenuView-dlroundmenuview.iml" filepath="$PROJECT_DIR$/.idea/modules/dlroundmenuview/RoundMenuView-dlroundmenuview.iml" group="RoundMenuView/dlroundmenuview" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="DL10RoundMenuView/app" />
+      <module fileurl="file://$PROJECT_DIR$/dlroundmenuview/dlroundmenuview.iml" filepath="$PROJECT_DIR$/dlroundmenuview/dlroundmenuview.iml" group="DL10RoundMenuView/dlroundmenuview" />
+    </modules>
+  </component>
+</project>

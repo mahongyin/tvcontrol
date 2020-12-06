@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+<ImageView
+
+    android:id="@+id/img_on"
+    android:src="@android:drawable/ic_menu_add"
+    android:layout_width="55dp"
+    android:layout_height="55dp"/>
+    <RelativeLayout
+        android:id="@+id/tvcontrol"
+        android:layout_below="@+id/img_on"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+    <com.dlong.rep.dlroundmenuview.DLRoundMenuView
+        android:id="@+id/dl_rmv"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerInParent="true"
+        app:RMCoreMenuDrawable="@drawable/ok"
+        app:RMRoundMenuDrawable="@drawable/right" />
+
+    <Button
+        android:id="@+id/v0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dl_rmv"
+        android:layout_marginStart="10dp"
+        android:text="音量-" />
+
+    <Button
+        android:id="@+id/v1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/dl_rmv"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:text="音量+" />
+
+    <Button
+        android:id="@+id/home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/v0"
+        android:layout_alignStart="@+id/v0"
+        android:text="主页" />
+
+    <Button
+        android:id="@+id/setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/home"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:text="设置" />
+
+
+    <Button
+        android:id="@+id/menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dl_rmv"
+        android:layout_alignStart="@+id/v0"
+        android:text="菜单" />
+
+    <Button
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/menu"
+        android:layout_alignEnd="@+id/v1"
+        android:text="返回" />
+
+    <Button
+        android:layout_alignStart="@+id/menu"
+        android:layout_above="@+id/home"
+        android:id="@+id/power"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="电源" />
+    <Button
+        android:id="@+id/before"
+        android:layout_below="@+id/menu"
+        android:layout_alignStart="@+id/v0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="向前翻页" />
+
+    <Button
+        android:layout_alignStart="@+id/back"
+        android:layout_below="@+id/back"
+        android:id="@+id/after"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="向后翻页" />
+        <Button
+        android:layout_alignStart="@+id/after"
+        android:layout_below="@+id/after"
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tv" />
+        <Button
+        android:layout_alignStart="@+id/before"
+        android:layout_below="@+id/after"
+        android:id="@+id/win"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="画中画" />
+    </RelativeLayout>
+</RelativeLayout>
