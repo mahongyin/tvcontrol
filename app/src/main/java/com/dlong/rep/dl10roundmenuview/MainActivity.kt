@@ -24,14 +24,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         //检查是否已经授予权限，大于6.0的系统适用，小于6.0系统默认打开，无需理会
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
-            //没有权限，需要申请权限，因为是打开一个授权页面，所以拿不到返回状态的，所以建议是在onResume方法中从新执行一次校验
-            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-            intent.data = Uri.parse("package:" + getPackageName())
-           // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivityForResult(intent,100)
-        } else {
+        if (TVControl.hasOverlayPermission(this)) {
             TVControl.initTV(applicationContext)
+        } else {
+           TVControl.openOverlay(this,100)
         }
 
 //        // 单击

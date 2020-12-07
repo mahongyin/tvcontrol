@@ -1,6 +1,7 @@
 package com.mhy.tv.remotecontrol
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Instrumentation
 import android.content.Context
 import android.content.Intent
@@ -38,21 +39,38 @@ object TVControl {
             //没有权限，需要申请权限，因为是打开一个授权页面，所以拿不到返回状态的，所以建议是在onResume方法中从新执行一次校验
         } else {
             //已经有权限，可以直接显示悬浮窗
+            if (null == mWindowManager) {
                 view = LayoutInflater.from(appContext).inflate(R.layout.tv_control, null)
                 setTVEvent(view)
-                mWindowManager = appContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                mWindowManager =
+                    appContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
                 wmParams = getParams() //设置好悬浮窗的参数
                 mWindowManager?.addView(view, wmParams)
+            }
         }
     }
 
-    fun openOverlay(appContext: Context) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(appContext)) {
+    fun hasOverlayPermission(context: Context): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(context)) {
             //没有权限，需要申请权限，因为是打开一个授权页面，所以拿不到返回状态的，所以建议是在onResume方法中从新执行一次校验
+            return false
+        }
+        return true
+    }
+
+    fun openOverlay(context: Context,requestCode:Int) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-            intent.data = Uri.parse("package:" + appContext.getPackageName())
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            appContext.startActivity(intent)
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                intent.data = Uri.parse("package:" + context.getPackageName())
+            }
+            if (context is Activity) {
+                context.startActivityForResult(intent,requestCode)
+            }else{
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                context.startActivity(intent)
+            }
+
         }
     }
 
@@ -184,11 +202,11 @@ object TVControl {
         //wmParams.type = LayoutParams.TYPE_PHONE;
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
-            wmParams?.type = WindowManager.LayoutParams.TYPE_PHONE;//
+            wmParams?.type = WindowManager.LayoutParams.TYPE_PHONE//TYPE_SYSTEM_OVERLAY
         } else {
-            wmParams?.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
+            wmParams?.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
         }
-        //        wmParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR;
+        //        wmParams.type = WindowManager.LayoutParams.TYPE_SYSTEM_ERROR
         //设置图片格式，效果为背景透明
         wmParams?.format = PixelFormat.RGBA_8888
         //设置浮动窗口不可聚焦（实现操作除浮动窗口外的其他可见窗口的操作）
@@ -218,6 +236,7 @@ object TVControl {
             try {
                 Instrumentation().sendKeyDownUpSync(keyCode)
 //                exeCmd("input keyevent $keyCode")
+//                execAdbCode("input keyevent $keyCode")
             } catch (e: Exception) {
                 e.printStackTrace()
 
@@ -264,6 +283,15 @@ object TVControl {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    private fun execAdbCode(code: Int) {
+        val runtime = Runtime.getRuntime()
+        try {
+            runtime.exec("input keyevent $code")
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
