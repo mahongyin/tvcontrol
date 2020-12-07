@@ -8,6 +8,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlroundmenuview/RoundMenuView-dlroundmenuview.iml" filepath="$PROJECT_DIR$/.idea/modules/dlroundmenuview/RoundMenuView-dlroundmenuview.iml" group="RoundMenuView/dlroundmenuview" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="DL10RoundMenuView/app" />
       <module fileurl="file://$PROJECT_DIR$/dlroundmenuview/dlroundmenuview.iml" filepath="$PROJECT_DIR$/dlroundmenuview/dlroundmenuview.iml" group="DL10RoundMenuView/dlroundmenuview" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tvcontrol.iml" filepath="$PROJECT_DIR$/.idea/modules/tvcontrol.iml" group="tvcontrol" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/tvcontrol-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/tvcontrol-app.iml" group="tvcontrol/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlroundmenuview/tvcontrol-dlroundmenuview.iml" filepath="$PROJECT_DIR$/.idea/modules/dlroundmenuview/tvcontrol-dlroundmenuview.iml" group="tvcontrol/dlroundmenuview" />
     </modules>
   </component>
 </project>

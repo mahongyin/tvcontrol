@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             //没有权限，需要申请权限，因为是打开一个授权页面，所以拿不到返回状态的，所以建议是在onResume方法中从新执行一次校验
             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
             intent.data = Uri.parse("package:" + getPackageName())
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+           // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivityForResult(intent,100)
         } else {
             TVControl.initTV(applicationContext)
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity() {
              }else{
                 val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
                 intent.data = Uri.parse("package:" + getPackageName())
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivityForResult(intent,100)
             }
         }

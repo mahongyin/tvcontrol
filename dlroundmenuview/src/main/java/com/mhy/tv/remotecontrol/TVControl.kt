@@ -3,8 +3,11 @@ package com.mhy.tv.remotecontrol
 import android.annotation.SuppressLint
 import android.app.Instrumentation
 import android.content.Context
+import android.content.Intent
 import android.graphics.PixelFormat
+import android.net.Uri
 import android.os.Build
+import android.provider.Settings
 import android.util.Log
 import android.view.*
 import android.widget.Button
@@ -31,14 +34,25 @@ object TVControl {
     private var mWindowManager: WindowManager? = null//创建浮动窗口设置布局参数的对象
     private var view: View? = null
     fun initTV(appContext: Context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(appContext)) {
+            //没有权限，需要申请权限，因为是打开一个授权页面，所以拿不到返回状态的，所以建议是在onResume方法中从新执行一次校验
+        } else {
+            //已经有权限，可以直接显示悬浮窗
+                view = LayoutInflater.from(appContext).inflate(R.layout.tv_control, null)
+                setTVEvent(view)
+                mWindowManager = appContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+                wmParams = getParams() //设置好悬浮窗的参数
+                mWindowManager?.addView(view, wmParams)
+        }
+    }
 
-        //已经有权限，可以直接显示悬浮窗
-        view = LayoutInflater.from(appContext).inflate(R.layout.tv_control, null)
-        setTVEvent(view)
-        if (mWindowManager == null) {
-            mWindowManager = appContext.getSystemService(Context.WINDOW_SERVICE) as WindowManager?
-            wmParams = getParams() //设置好悬浮窗的参数
-            mWindowManager?.addView(view, wmParams)
+    fun openOverlay(appContext: Context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(appContext)) {
+            //没有权限，需要申请权限，因为是打开一个授权页面，所以拿不到返回状态的，所以建议是在onResume方法中从新执行一次校验
+            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
+            intent.data = Uri.parse("package:" + appContext.getPackageName())
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            appContext.startActivity(intent)
         }
     }
 
@@ -91,10 +105,10 @@ object TVControl {
                             if (mStopX - touchStartX < 30 && mStartY - touchStartY < 30 && System.currentTimeMillis() - touchStartTime < 300) {
                                 //左右上下移动距离不超过30的，并且按下和抬起时间少于300毫秒，算是单击事件，进行回调
                                 if (view.findViewById<RelativeLayout>(R.id.tvcontrol)?.visibility == View.VISIBLE) {
-                                    view?.findViewById<RelativeLayout>(R.id.tvcontrol)?.visibility =
+                                    view.findViewById<RelativeLayout>(R.id.tvcontrol)?.visibility =
                                         View.GONE
                                 } else {
-                                    view?.findViewById<RelativeLayout>(R.id.tvcontrol)?.visibility =
+                                    view.findViewById<RelativeLayout>(R.id.tvcontrol)?.visibility =
                                         View.VISIBLE
                                 }
                                 return false
