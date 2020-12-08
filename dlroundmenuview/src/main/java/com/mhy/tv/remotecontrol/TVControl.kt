@@ -61,9 +61,9 @@ object TVControl {
     fun openOverlay(context: Context,requestCode:Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-                intent.data = Uri.parse("package:" + context.getPackageName())
-            }
+//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+//                intent.data = Uri.parse("package:" + context.getPackageName())
+//            }
             if (context is Activity) {
                 context.startActivityForResult(intent,requestCode)
             }else{

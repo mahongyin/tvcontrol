@@ -1,19 +1,15 @@
 package com.dlong.rep.dl10roundmenuview
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.KeyEvent
-import android.view.MotionEvent
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.dlong.rep.dl10roundmenuview.databinding.ActivityMainBinding
-import com.dlong.rep.dlroundmenuview.Interface.OnMenuClickListener
-import com.dlong.rep.dlroundmenuview.Interface.OnMenuLongClickListener
-import com.dlong.rep.dlroundmenuview.Interface.OnMenuTouchListener
 import com.mhy.tv.remotecontrol.TVControl
 
 class MainActivity : AppCompatActivity() {
@@ -56,8 +52,31 @@ class MainActivity : AppCompatActivity() {
         // 统一lambda接口
         binding.dlRmv.setOnMenuListener {
             onMenuClick { position ->
+                when(position){
+//                    0-> XXPermissions.with(this@MainActivity)
+//                        .permission(Permission.SYSTEM_ALERT_WINDOW)
+//                        .request(object : OnPermissionCallback {
+//                            override fun onGranted(
+//                                permissions: MutableList<String>?,
+//                                all: Boolean
+//                            ) {
+//
+//                            }
+//
+//                            override fun onDenied(
+//                                permissions: MutableList<String>?,
+//                                never: Boolean
+//                            ) {
+//
+//                            }
+//
+//                        })
+                    1-> TVControl.openOverlay(this@MainActivity,100)
+                    -1-> TVControl.initTV(applicationContext)
+                }
+
                 // 单击
-                Log.i("lambda 单击", "点击了：$position")
+//                Log.i("lambda 单击", "点击了：$position")
             }
 
             onMenuLongClick { position ->
@@ -79,12 +98,12 @@ class MainActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(this)){
                 TVControl.initTV(applicationContext)
              }else{
-                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-                intent.data = Uri.parse("package:" + getPackageName())
-                //intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivityForResult(intent,100)
+                TVControl.openOverlay(this,100)
             }
         }
+//        if (requestCode==XXPermissions.REQUEST_CODE){
+//            Toast.makeText(this, "xxper", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     override fun dispatchKeyEvent(event: KeyEvent?): Boolean {
