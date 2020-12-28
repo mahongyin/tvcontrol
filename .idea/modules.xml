@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AProjects-tvcontrol.iml" filepath="$PROJECT_DIR$/.idea/modules/AProjects-tvcontrol.iml" group="tvcontrol" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/AProjects-tvcontrol-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/AProjects-tvcontrol-app.iml" group="tvcontrol/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dlroundmenuview/AProjects-tvcontrol-dlroundmenuview.iml" filepath="$PROJECT_DIR$/.idea/modules/dlroundmenuview/AProjects-tvcontrol-dlroundmenuview.iml" group="tvcontrol/dlroundmenuview" />
       <module fileurl="file://$PROJECT_DIR$/DL10RoundMenuView.iml" filepath="$PROJECT_DIR$/DL10RoundMenuView.iml" group="DL10RoundMenuView" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/RoundMenuView.iml" filepath="$PROJECT_DIR$/.idea/modules/RoundMenuView.iml" group="RoundMenuView" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RoundMenuView-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RoundMenuView-app.iml" group="RoundMenuView/app" />

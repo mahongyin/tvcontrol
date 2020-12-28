@@ -12,6 +12,7 @@ Android 圆形遥控器按钮盘 带中间按钮
 ![](/img/sc_4.png)
 ![](/img/sc_5.png)
 # 使用说明
+1.1.2自动判断是否时tv设备
 ## 注意说明
 **版本使用androidx+kotlin代码**
 ## 添加依赖
@@ -28,7 +29,7 @@ Step 2. Add the dependency
 
 ```java
 	dependencies {
-	        implementation 'com.mhy.tv:tvcontrol:1.0.0'
+	        implementation 'com.mhy.tv:tvcontrol:1.1.2'
 	}
 ```
 ## 在布局中使用

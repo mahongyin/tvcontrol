@@ -3,8 +3,11 @@ package com.mhy.tv.remotecontrol
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Instrumentation
+import android.app.UiModeManager
 import android.content.Context
+import android.content.Context.UI_MODE_SERVICE
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.PixelFormat
 import android.net.Uri
 import android.os.Build
@@ -14,6 +17,7 @@ import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import androidx.core.content.ContextCompat.getSystemService
 import com.dlong.rep.dlroundmenuview.DLRoundMenuView
 import java.io.BufferedReader
 import java.io.DataOutputStream
@@ -58,12 +62,17 @@ object TVControl {
         return true
     }
 
-    fun openOverlay(context: Context,requestCode:Int) {
+    fun openOverlay(context: Context, requestCode:Int) {
+        val uiModeManager =  context.getSystemService(UI_MODE_SERVICE) as UiModeManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION)
-//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-//                intent.data = Uri.parse("package:" + context.getPackageName())
-//            }
+            if (uiModeManager.getCurrentModeType() == Configuration.UI_MODE_TYPE_TELEVISION) {
+                // "Running on a TV Device"
+            } else {
+//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                intent.data = Uri.parse("package:" + context.getPackageName())
+//             }
+            }
             if (context is Activity) {
                 context.startActivityForResult(intent,requestCode)
             }else{
@@ -73,7 +82,6 @@ object TVControl {
 
         }
     }
-
     @SuppressLint("ClickableViewAccessibility")
     private fun setTVEvent(view: View?) {
 //        view?.findViewById<ImageView>(R.id.img_on)?.setOnClickListener {
@@ -192,7 +200,8 @@ object TVControl {
     }
 
     fun hide() {
-        mWindowManager?.removeView(view);
+        view?.let { mWindowManager?.removeView(it)}
+
     }
 
     fun getParams(): WindowManager.LayoutParams? {
